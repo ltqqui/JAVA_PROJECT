@@ -11,8 +11,8 @@ public class Client {
 	 public static void main(String args[]) throws RemoteException {
 		 try {
 	            //Xác định RMI máy chủ.
-	        	ProductManagementInterface  product = (ProductManagementInterface) Naming.lookup("rmi://192.168.72.1:6789/SeptemberRMI");	
-	            new ProductManagementView();
+	        	ProductManagementInterface  product = (ProductManagementInterface) Naming.lookup("rmi://localhost:6789/SeptemberRMI");	
+	            new ProductManagementView_v1();
 	        } catch (NotBoundException e) {
 	            e.printStackTrace();
 	        } catch (MalformedURLException e) {

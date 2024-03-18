@@ -23,7 +23,7 @@ public class Server {
 	            LocateRegistry.createRegistry(6789);
 
 				// Đăng ký đối tượng này với rmiregistry
-	            Naming.bind("rmi://192.168.72.1:6789/SeptemberRMI", product);
+	            Naming.bind("rmi://localhost:6789/SeptemberRMI", product);
 	            System.out.println(">>>>>INFO: RMI Server started!!!!!!!!");
 
 	        } catch (RemoteException e) {
