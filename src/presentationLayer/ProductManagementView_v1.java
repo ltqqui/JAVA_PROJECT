@@ -31,7 +31,7 @@ import businessLogicLayer.Product;
 import businessLogicLayer.ProductManagement;
 import businessLogicLayer.User;
 
-public class ProductManagementView extends JFrame {
+public class ProductManagementView_v1 extends JFrame {
     private CardLayout cardLayout;
     private JPanel cards;
     private static final long serialVersionUID = 1L;
@@ -60,7 +60,7 @@ public class ProductManagementView extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ProductManagementView frame = new ProductManagementView();
+                    ProductManagementView_v1 frame = new ProductManagementView_v1();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -73,7 +73,7 @@ public class ProductManagementView extends JFrame {
      * Create the frame.
      * @throws RemoteException 
      */
-    public ProductManagementView() throws RemoteException {
+    public ProductManagementView_v1() throws RemoteException {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 675, 389);
 
