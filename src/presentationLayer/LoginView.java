@@ -5,12 +5,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import businessLogicLayer.ProductManagement;
+import businessLogicLayer.User;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -18,20 +26,18 @@ import javax.swing.JButton;
 import java.awt.Color;
 
 public class LoginView extends JFrame {
-
 	private static final long serialVersionUID = 1L;
-	private JPanel loginView;
+	public JPanel loginView;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	static LoginView frame = new LoginView();
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					LoginView frame = new LoginView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,9 +46,7 @@ public class LoginView extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public LoginView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -80,7 +84,6 @@ public class LoginView extends JFrame {
 		passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 22));
 		passwordField.setBounds(356, 207, 236, 36);
 		loginView.add(passwordField);
-		
 		JButton loginBtn = new JButton("Login");
 		loginBtn.setBackground(new Color(0, 255, 127));
 		loginBtn.setFont(new Font("Segoe UI", Font.BOLD, 26));
@@ -90,11 +93,39 @@ public class LoginView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				try {
+		            char[] password = passwordField.getPassword();
+		            String passwordString = new String(password);
+		            String userName= usernameField.getText();
+		            if(usernameField.getText().isEmpty() || passwordString.isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Error: Input can not be empty !", "Error", JOptionPane.ERROR_MESSAGE);
+		            } else {
+		                ProductManagement pmm = new ProductManagement();
+		                pmm.login(userName, passwordString);
+		                if(pmm.userProfile.getUserName()!=null) {
+		                	User user= new User();
+		                	user.setUserName(pmm.userProfile.getUserName());
+		                	new HomeView().setUserProfile(userName);
+		                	dispose();
+		                }
+		            }
+		        }
+				catch (RemoteException e1) {
+		            e1.printStackTrace();
+		        } catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-
-
 		});
 		
 		loginView.add(loginBtn);
