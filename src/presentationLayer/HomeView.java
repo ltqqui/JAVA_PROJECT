@@ -157,7 +157,12 @@ public class HomeView extends JFrame {
 		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logoutAction();
+				try {
+					logoutAction();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnLogout.setBounds(10, 487, 112, 23);
@@ -214,10 +219,26 @@ public class HomeView extends JFrame {
 		JButton clearProductName = new JButton("Clear");
 		clearProductName.setBounds(738, 158, 57, 38);
 		addProductForm.add(clearProductName);
+		clearProductName.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				productNameField.setText("");
+			}
+		});
 
 		JButton clearPrice = new JButton("Clear");
 		clearPrice.setBounds(738, 207, 57, 38);
 		addProductForm.add(clearPrice);
+		clearPrice.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				priceField.setText("");
+			}
+		});
 
 		JButton addProduct = new JButton("Add");
 		addProduct.addActionListener(new ActionListener() {
@@ -556,7 +577,7 @@ public class HomeView extends JFrame {
 	        	JOptionPane.showMessageDialog(null, "Input must a be a integer  !", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
 	   }
-	   public void logoutAction() {
+	   public void logoutAction() throws RemoteException {
 		   pmm.logout();
 		   new LoginView().setVisible(true);;
 		   dispose();
